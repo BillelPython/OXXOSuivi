@@ -1,0 +1,17 @@
+# Fichiers Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Base de données locale
+db.sqlite3
+
+# Environnement virtuel
+.venv/
+
+# Paramètres d'environnement
+.env
+
+# Dossiers de migration
+*/migrations/
