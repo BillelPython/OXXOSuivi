@@ -19,11 +19,13 @@ from django.urls import path , include
 
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('team/', include('team.urls')),
-    path('', include('accounts.urls')),
+    path('', RedirectView.as_view(url='/dashboard/')),  # redirection racine
     path('equipes/', include('equipes.urls')),
+    path('', include('accounts.urls')),  # login/logout
 
 ]
