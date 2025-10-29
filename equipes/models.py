@@ -34,6 +34,7 @@ class Commande(models.Model):
 
 
 class Affectation(models.Model):
+    id = models.AutoField(primary_key=True)
     franchise = models.CharField(
         max_length=100,
         choices=FRANCHISES,

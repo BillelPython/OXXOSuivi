@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import EquipeForm , EvaluationForm
+from .forms import EquipeForm , EvaluationForm , AffectationForm
 from django.contrib.auth.decorators import login_required
 from .models import Equipes, Affectation , FRANCHISES , Evaluation
 
@@ -88,4 +88,49 @@ def liste_evaluations(request):
 def index(request):
     return render(request, 'equipes/index.html')
 
+
+@login_required
+def modifier_evaluation(request, evaluation_id):
+    evaluation = get_object_or_404(Evaluation, id=evaluation_id)
+
+    if request.method == 'POST':
+        form = EvaluationForm(request.POST, instance=evaluation)
+        if form.is_valid():
+            form.save()
+            return redirect('liste_evaluations')  # redirige vers la liste des évaluations
+    else:
+        form = EvaluationForm(instance=evaluation)
+
+    return render(request, 'evaluations/modifier_evaluation.html', {'form': form})
+
+
+@login_required
+def supprimer_evaluation(request, evaluation_id):
+    evaluation = get_object_or_404(Evaluation, id=evaluation_id)
+
+    if request.method == 'POST':
+        evaluation.delete()
+        return redirect('liste_evaluations')
+
+    # Affiche une page de confirmation avant suppression
+    return render(request, 'evaluations/confirmer_suppression.html', {'evaluation': evaluation})
+
+@login_required
+def modifier_affectation(request, affectation_id):
+    affectation = get_object_or_404(Affectation, pk=affectation_id)
+    if request.method == 'POST':
+        form = AffectationForm(request.POST, instance=affectation)
+        if form.is_valid():
+            form.save()
+            return redirect('liste_affectations')
+    else:
+        form = AffectationForm(instance=affectation)
+    return render(request, 'equipes/modifier_affectation.html', {'form': form})
+
+
+@login_required
+def supprimer_affectation(request, affectation_id):
+    affectation = get_object_or_404(Affectation, pk=affectation_id)
+    affectation.delete()
+    return redirect('liste_affectations')
 

@@ -1,13 +1,13 @@
 {% block content %}
 <div class="container mt-5">
-    <h2 class="mb-4 text-center">Modifier une équipe</h2>
+    <h2 class="mb-4 text-center">Modifier une evaluation</h2>
 
     <div class="card shadow-sm p-4">
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
             <div class="d-flex justify-content-between mt-4">
-                <a href="{% url 'liste_equipes' %}" class="btn btn-secondary">
+                <a href="{% url 'liste_evaluations' %}" class="btn btn-secondary">
                     ⬅ Retour à la liste
                 </a>
                 <button type="submit" class="btn btn-primary">

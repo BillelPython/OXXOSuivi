@@ -1,9 +1,18 @@
+
 <!DOCTYPE html>
+{% load static %}
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <title>Tableau de bord</title>
     <style>
+        body {
+            height: 100vh;
+            background-image: url("{% static 'images/fond.png' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
         body {
             font-family: 'Segoe UI', sans-serif;
             background-color: #f2f4f7;

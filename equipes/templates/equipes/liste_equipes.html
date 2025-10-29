@@ -1,5 +1,8 @@
 {% block content %}
 <div class="container mt-4">
+    <!-- Bouton Home -->
+    <a href="{% url 'dashboard' %}" class="btn btn-secondary mb-3">🏠 Home</a>
+
     <h2 class="mb-3">Liste des Équipes de Pose</h2>
     <a href="{% url 'ajouter_equipe' %}" class="btn btn-success mb-4">➕ Ajouter une équipe</a>
     <h2 class="mb-3"></h2><!-- mb-4 ajoute plus d'espace -->

@@ -1,5 +1,8 @@
 {% block content %}
 <div class="container mt-4">
+     <!-- Bouton Home -->
+    <a href="{% url 'dashboard' %}" class="btn btn-secondary mb-3">🏠 Home</a>
+
     <h2 class="mb-3">Liste des Évaluations</h2>
     <a href="{% url 'ajouter_evaluation' %}" class="btn btn-warning mb-4">➕ Ajouter une évaluation</a>
 
@@ -13,6 +16,7 @@
                 <th>Respect Client</th>
                 <th>Moyenne</th>
                 <th>Date</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -25,6 +29,10 @@
                 <td>{{ ev.respect_client }}</td>
                 <td><strong>{{ ev.moyenne }}</strong></td>
                 <td>{{ ev.date_evaluation }}</td>
+                <td>
+                    <a href="{% url 'modifier_evaluation' ev.id %}" class="btn btn-sm btn-primary">✏️</a>
+                    <a href="{% url 'supprimer_evaluation' ev.id %}" class="btn btn-sm btn-danger" onclick="return confirm('Supprimer cette evaluation ?')">🗑</a>
+                </td>
             </tr>
             {% empty %}
             <tr>
