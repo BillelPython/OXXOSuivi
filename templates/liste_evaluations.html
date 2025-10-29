@@ -1,36 +1,70 @@
-{% extends 'base.html' %}
 {% block content %}
 <div class="container mt-4">
-  <h3 class="mb-4">📊 Liste des Évaluations</h3>
-  <a href="{% url 'ajouter_evaluation' %}" class="btn btn-primary mb-3">➕ Nouvelle Évaluation</a>
+    <h2 class="mb-3">Liste des Évaluations</h2>
+    <a href="{% url 'ajouter_evaluation' %}" class="btn btn-warning mb-4">➕ Ajouter une évaluation</a>
 
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Équipe</th>
-        <th>Commande</th>
-        <th>Ponctualité</th>
-        <th>Qualité</th>
-        <th>Respect Client</th>
-        <th>Moyenne</th>
-        <th>Date</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for ev in evaluations %}
-      <tr>
-        <td>{{ ev.affectation.equipe.nom }}</td>
-        <td>{{ ev.affectation.commande }}</td>
-        <td>{{ ev.ponctualite }}</td>
-        <td>{{ ev.qualite_travail }}</td>
-        <td>{{ ev.respect_client }}</td>
-        <td><strong>{{ ev.moyenne }}</strong></td>
-        <td>{{ ev.date_evaluation }}</td>
-      </tr>
-      {% empty %}
-      <tr><td colspan="7" class="text-center">Aucune évaluation enregistrée.</td></tr>
-      {% endfor %}
-    </tbody>
-  </table>
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>Équipe</th>
+                <th>Commande</th>
+                <th>Ponctualité</th>
+                <th>Qualité</th>
+                <th>Respect Client</th>
+                <th>Moyenne</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ev in evaluations %}
+            <tr>
+                <td>{{ ev.affectation.equipes.nom }}</td>
+                <td>{{ ev.affectation.commande }}</td>
+                <td>{{ ev.ponctualite }}</td>
+                <td>{{ ev.qualite_travail }}</td>
+                <td>{{ ev.respect_client }}</td>
+                <td><strong>{{ ev.moyenne }}</strong></td>
+                <td>{{ ev.date_evaluation }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7" class="text-center">Aucune évaluation enregistrée.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
+
+<style>
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+.styled-table thead tr {
+    background-color: #FFD700; /* Jaune doré */
+    color: #000000;
+    text-align: left;
+}
+
+.styled-table th, .styled-table td {
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+}
+
+.styled-table tbody tr:nth-child(even) {
+    background-color: #f9f2d9; /* Jaune très clair */
+}
+
+.styled-table tbody tr:hover {
+    background-color: #fff3b0; /* Survol légèrement plus foncé */
+}
+
+.styled-table tbody td a {
+    margin-right: 5px;
+    text-decoration: none;
+}
+</style>
 {% endblock %}

@@ -1,4 +1,3 @@
-{% extends 'base.html' %}
 {% block content %}
 <div class="container mt-4">
     <h3 class="mb-4">➕ Nouvelle Affectation</h3>
@@ -25,14 +24,9 @@
             </select>
         </div>
 
-        <div class="mb-3">
+         <div class="mb-3">
             <label>Commande :</label>
-            <select name="commande" class="form-select" required>
-                <option value="">-- Sélectionner une commande --</option>
-                {% for cmd in commandes %}
-                <option value="{{ cmd.id }}">{{ cmd.numero_commande }} - {{ cmd.client }}</option>
-                {% endfor %}
-            </select>
+            <input type="number" name="commande" class="form-control" required>
         </div>
 
         <div class="mb-3">

@@ -1,28 +1,72 @@
-{% extends 'base.html' %}
 {% block content %}
-<h2>Liste des Équipes de Pose</h2>
-<a href="{% url 'ajouter_equipe' %}" class="btn btn-success">➕ Ajouter une équipe</a>
-<table border="1" cellpadding="8">
-    <tr>
-        <th>Franchisé</th>
-        <th>Nom</th>
-        <th>Chef d'équipe</th>
-        <th>Poseurs</th>
-        <th>Téléphone</th>
-        <th>Actions</th>
-    </tr>
-    {% for equipe in equipes %}
-    <tr>
-        <td>{{ equipe.franchise }}</td>
-        <td>{{ equipe.nom }}</td>
-        <td>{{ equipe.chef_equipe }}</td>
-        <td>{{ equipe.nombre_poseurs }}</td>
-        <td>{{ equipe.telephone }}</td>
-        <td>
-            <a href="{% url 'modifier_equipe' equipe.id %}">✏️ Modifier</a> |
-            <a href="{% url 'supprimer_equipe' equipe.id %}" onclick="return confirm('Supprimer cette équipe ?')">🗑 Supprimer</a>
-        </td>
-    </tr>
-    {% endfor %}
-</table>
+<div class="container mt-4">
+    <h2 class="mb-3">Liste des Équipes de Pose</h2>
+    <a href="{% url 'ajouter_equipe' %}" class="btn btn-success mb-4">➕ Ajouter une équipe</a>
+    <h2 class="mb-3"></h2><!-- mb-4 ajoute plus d'espace -->
+
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>Franchisé</th>
+                <th>Nom</th>
+                <th>Chef d'équipe</th>
+                <th>Poseurs</th>
+                <th>Téléphone</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for equipe in equipes %}
+            <tr>
+                <td>{{ equipe.franchise.nom }}</td>
+                <td>{{ equipe.nom }}</td>
+                <td>{{ equipe.chef_equipe|default:"-" }}</td>
+                <td>{{ equipe.nombre_poseurs }}</td>
+                <td>{{ equipe.telephone|default:"-" }}</td>
+                <td>
+                    <a href="{% url 'modifier_equipe' equipe.id %}" class="btn btn-sm btn-primary">✏️</a>
+                    <a href="{% url 'supprimer_equipe' equipe.id %}" class="btn btn-sm btn-danger" onclick="return confirm('Supprimer cette équipe ?')">🗑</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" class="text-center">Aucune équipe trouvée.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<style>
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+.styled-table thead tr {
+    background-color: #FFD700; /* Jaune doré */
+    color: #000000; /* Texte noir */
+    text-align: left;
+}
+
+.styled-table th, .styled-table td {
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+}
+
+.styled-table tbody tr:nth-child(even) {
+    background-color: #f9f2d9; /* Jaune très clair */
+}
+
+.styled-table tbody tr:hover {
+    background-color: #fff3b0; /* Survol légèrement plus foncé */
+}
+
+.styled-table tbody td a {
+    margin-right: 5px;
+    text-decoration: none;
+}
+</style>
 {% endblock %}

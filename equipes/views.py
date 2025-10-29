@@ -41,29 +41,35 @@ def liste_affectations(request):
     affectations = Affectation.objects.select_related('equipes').all()
     return render(request, 'equipes/liste_affectations.html', {'affectations': affectations})
 
-
 def ajouter_affectation(request):
     equipes = Equipes.objects.all()
     franchises = FRANCHISES
 
     if request.method == 'POST':
-        franchise = request.POST.get('franchise')
-        equipe_id = request.POST.get('equipes')
+        franchise_code = request.POST.get('franchise')
+        equipe_id = request.POST.get('equipe')
         commande = request.POST.get('commande')
         nombre_menuiseries = request.POST.get('nombre_menuiseries')
 
+        if not equipe_id:
+            return redirect('ajouter_affectation')
+
+        equipe_obj = get_object_or_404(Equipes, id=equipe_id)
+
         Affectation.objects.create(
-            franchise=franchise,
-            equipe_id=equipe_id,
+            franchise=franchise_code,
+            equipes=equipe_obj,  # <== attention au nom exact du champ
             commande=commande,
             nombre_menuiseries=nombre_menuiseries
         )
+
         return redirect('liste_affectations')
 
     return render(request, 'equipes/ajouter_affectation.html', {
         'equipes': equipes,
         'franchises': franchises
     })
+
 
 def ajouter_evaluation(request):
     if request.method == 'POST':
@@ -75,10 +81,10 @@ def ajouter_evaluation(request):
         form = EvaluationForm()
     return render(request, 'ajouter_evaluation.html', {'form': form})
 
-def liste_evaluations(request):
-    evaluations = Evaluation.objects.select_related('affectation__equipe')
-    return render(request, 'liste_evaluations.html', {'evaluations': evaluations})
 
+def liste_evaluations(request):
+    evaluations = Evaluation.objects.select_related('affectation')
+    return render(request, 'liste_evaluations.html', {'evaluations': evaluations})
 def index(request):
     return render(request, 'equipes/index.html')
 

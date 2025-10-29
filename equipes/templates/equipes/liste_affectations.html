@@ -1,9 +1,9 @@
-{% extends 'base.html' %}
 {% block content %}
 <div class="container mt-4">
     <h3 class="mb-4">📋 Liste des Affectations</h3>
-    <a href="{% url 'ajouter_affectation' %}" class="btn btn-primary mb-3">➕ Nouvelle Affectation</a>
-    <table class="table table-striped">
+    <a href="{% url 'ajouter_affectation' %}" class="btn btn-primary mb-4">➕ Nouvelle Affectation</a>
+
+    <table class="styled-table">
         <thead>
             <tr>
                 <th>Franchisé</th>
@@ -16,16 +16,51 @@
         <tbody>
             {% for aff in affectations %}
             <tr>
-                <td>{{ aff.equipe.franchise }}</td>
-                <td>{{ aff.equipe.nom }}</td>
-                <td>{{ aff.commande.numero_commande }}</td>
+                <td>{{ aff.franchise }}</td>
+                <td>{{ aff.equipes.nom }}</td>
+                <td>{{ aff.commande }}</td>
                 <td>{{ aff.nombre_menuiseries }}</td>
-                <td>{{ aff.date_affectation }}</td>
+                <td>{{ aff.date_affectation|date:"d/m/Y" }}</td>
             </tr>
             {% empty %}
-            <tr><td colspan="4" class="text-center">Aucune affectation trouvée.</td></tr>
+            <tr>
+                <td colspan="5" class="text-center">Aucune affectation trouvée.</td>
+            </tr>
             {% endfor %}
         </tbody>
     </table>
 </div>
+
+<style>
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+.styled-table thead tr {
+    background-color: #FFD700; /* Jaune doré */
+    color: #000000; /* Texte noir */
+    text-align: left;
+}
+
+.styled-table th, .styled-table td {
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+}
+
+.styled-table tbody tr:nth-child(even) {
+    background-color: #f9f2d9; /* Jaune très clair */
+}
+
+.styled-table tbody tr:hover {
+    background-color: #fff3b0; /* Survol légèrement plus foncé */
+}
+
+.styled-table tbody td a {
+    margin-right: 5px;
+    text-decoration: none;
+}
+</style>
 {% endblock %}
